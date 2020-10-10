@@ -134,6 +134,23 @@ namespace ConnectTheDotsServer
 										return true;
 									}
 
+									var validEndNode = game.NewSegmentStartNode.x == node.x || game.NewSegmentStartNode.y == node.y;
+
+									if (!validEndNode)
+									{
+										var lineRatio = (game.NewSegmentStartNode.x - node.x) /
+														(game.NewSegmentStartNode.y - node.y);
+										if (lineRatio == 1 || lineRatio == -1)
+										{
+											validEndNode = true;
+										}
+
+										if (!validEndNode)
+										{
+											ProcessInvalidEndNode(context);
+										}
+									}
+
 									ProcessValidEndNode(context, node);
 								}
 								return true;
